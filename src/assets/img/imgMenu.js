@@ -9,6 +9,7 @@ import logo192 from './logo192.png'
 import search from './Search.png'
 import setting from './Setting.png'
 import user from './User.png'
+import ImgSwitch from './Switch_productos_nuevo.webp'
 
 const imgMenu = ({
     Calendar: calendar,
@@ -21,7 +22,8 @@ const imgMenu = ({
     logo192: logo192,
     Search: search,
     Setting: setting,
-    User: user
+    User: user,
+    Pprueba: ImgSwitch
 })
 
 export default imgMenu
