@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import imgSrc from './assets/img/imgMenu'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 import RoutPages from './routes/Routes'
+import HeaderPage from './components/Header'
 
 function App() {
   const OptionsNavBar = [
@@ -21,7 +22,7 @@ function App() {
      relative`}>
           <img src={imgSrc['control']} alt=''
             className={`${!open && "rotate-180"} absolute cursor-pointer rounded-full -right-3
-       top-12 w-7 border-2 border-dark-purple`}
+       top-14 w-7 border-2 border-dark-purple`}
             onClick={() => setOpen(!open)}
           />
           <div className='flex gap-x-4 mt-4 items-center'>
@@ -32,10 +33,10 @@ function App() {
               Inventario Productos
             </h1>
           </div>
-          <ul className={`${open ? "p-10 pt-5" : "p-0 pt-5"} duration-300`}>
+          <ul className={`${open ? "p-10 pt-5" : "p-0 pt-5"} duration-500`}>
             {OptionsNavBar.map((menu, index) => (
               <li key={index} className={`${menu.gap ? "mt-9" : "mt-2"} text-gray-300 text-sm flex items-center align-middle
-        gap-x-4 cursor-pointer p-2 rounded-md mr-0 hover:bg-blue-500 duration-300`}>
+        gap-x-4 cursor-pointer p-2 rounded-md mr-0 hover:bg-blue-500 duration-300`}  onClick={() => 'bg-blue-500'}>
                 <Link to={menu.href} className={`origin-left duration-300 flex items-center align-middle gap-x-4`}>
                   <img src={imgSrc[menu.src]} alt='' />
                   <h1 className={`${!open && 'hidden'}`}>{menu.title}</h1>
@@ -45,12 +46,15 @@ function App() {
           </ul>
           <div className='flex gap-x-4 items-center mt-10 cursor-pointer'>
             <img src={imgSrc['Setting']} className={`w-6 ml-2`} alt='img-setting' />
-            <h1 className={`${!open && "scale-0 m-14"} text-white font-semibold origin-left textx1 duration-300`}>Settings</h1>
+            <h1 className={`${!open && "hidden m-14"} text-white font-semibold origin-left textx1 duration-300`}>Settings</h1>
           </div>
         </div>
-        <div className={`p-7 pr-36 text-2x1 font-semibold 
-        h-screen relative flex justify-center w-full ml-28`}>
-          <RoutPages />
+        <div className='flex flex-col p-0 w-full'>
+          <HeaderPage />
+          <div className={`${open ? "mr-14 pr-0" : "ml-0 pr-0"} p-2 pr-36 text-2x1 font-semibold 
+          relative flex justify-center w-full m-0 duration-300`}>
+            <RoutPages />
+          </div>
         </div>
       </div>
     </Router>

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ImgProd from '../assets/img/Switch_productos_nuevo.webp'
 
 const AdminProducts = () => {
+    useEffect(() => {
+        fetch('')
+    },[])
     return (
-        <div className='bg-blue-300 relative flex flex-col gap-3 rounded-md'>
-            <div className='flex mt-1 justify-center'>
-                <h1 className='text-2xl'>Administración de Productos</h1>
-            </div>
-            <div className='origin-left m-2 flex gap-3'>
+        <div className='bg-white relative flex flex-col gap-3 rounded-md'>
+            <div className='bg-blue-300 origin-left flex gap-3 rounded-lg border-2 p-4'>
                 <div className='w-1/2 flex flex-col gap-3 ml-8'>
                     <div className='m-1'>
                         <h2>Código de Producto:</h2>
