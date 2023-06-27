@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ImgProd from '../assets/img/Switch_productos_nuevo.webp'
+import useFetch from '../useFetch'
 
 const AdminProducts = () => {
-    useEffect(() => {
-        fetch('')
-    },[])
+    const r = useFetch()
+    console.log(r)
+    console.log('salio metodo')
+
     return (
         <div className='bg-white relative flex flex-col gap-3 rounded-md'>
             <div className='bg-blue-300 origin-left flex gap-3 rounded-lg border-2 p-4'>
