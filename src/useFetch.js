@@ -1,22 +1,44 @@
-import { useState, useEffect } from 'react'
 import Axios from 'axios'
 
-const useAxios = async () => {
-    const [dato, setDato] = useState(null)
-    const options = {
-        method: 'GET',// Método HTTP, como GET, POST, PUT, DELETE, etc.
-        headers: {
-            'Header': `Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hdGVpdG8iLCJpYXQiOjE2ODc3MTIzNTMsImV4cCI6MTY4Nzc5ODc1M30.2Hz31DllO4e4kVQiH2GUyw30tfKM6c3eQDSi0Vkg4Ag` // Incluir el token en el encabezado de autorización
-          }
-    };
-    const jwToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hdGVpdG8iLCJpYXQiOjE2ODc3MTIzNTMsImV4cCI6MTY4Nzc5ODc1M30.2Hz31DllO4e4kVQiH2GUyw30tfKM6c3eQDSi0Vkg4Ag';
+const useAxios = async (url, condiciones = null, tipoPeticion = 'get', parametros = null) => {
+    const jwToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1hdGVpdG8iLCJpYXQiOjE2ODgwMDIyMjcsImV4cCI6MTY4ODA4ODYyN30.sB5Of809yh3ixca5-Yy54QJQNIAe0WEI3_951lLOGe8';
+    const baseUrl = 'https://inventarioproductos.onrender.com'
+    let peticion
+    let jsonEnvioParametros = {
+        pro_id: "",
+        pro_campo: [
+        ]
+    }
+    let jsonCompleto
+    if (parametros) {
+        const claves = Object.keys(parametros)
+        const valores = Object.values(parametros)
+        jsonEnvioParametros['pro_id'] = valores[0]
+        for (let i = 1; i < claves.length; i++) {
+            let campo = {}
+            campo['campo'] = claves[i]
+            campo['valor'] = valores[i]
+            jsonEnvioParametros['pro_campo'].push(campo)
+        }
+        jsonCompleto = JSON.stringify(jsonEnvioParametros)
+    }
+    let urlPeticion = baseUrl + url
+
     Axios.defaults.headers.common["Authorization"] = `${jwToken}`;
-    Axios.defaults.headers.common["Content-Type"]="application/json"
-    console.log('Peticion')
-    const peticion = await Axios.get('http://localhost:3000/productos').catch(function (error){console.log(error)})
-    console.log('Entro')
-    console.log(peticion)
-    return peticion
+    Axios.defaults.headers.common["Content-Type"] = "application/json"
+    try {
+        urlPeticion = `${condiciones ? `${urlPeticion}/${condiciones}` : `${urlPeticion}`}`
+        if (!parametros) {
+            peticion = await Axios({ method: `${tipoPeticion}`, url: `${urlPeticion}`, jsonCompleto })
+                .catch(function (error) { console.log(error) })
+        }else{
+            console.log('tipo de peticion: '+tipoPeticion)
+            peticion = await Axios.put(urlPeticion,jsonEnvioParametros).catch(function (error) {console.log(error)})
+        }
+    } catch (error) {
+        peticion = error.Message
+    }
+    return peticion.data;
 }
 
 export default useAxios

@@ -51,8 +51,8 @@ function App() {
         </div>
         <div className='flex flex-col p-0 w-full'>
           <HeaderPage />
-          <div className={`${open ? "mr-14 pr-0" : "ml-0 pr-0"} p-2 pr-36 text-2x1 font-semibold 
-          relative flex justify-center w-full m-0 duration-300`}>
+          <div className={`${open ? "mr-14 ml-14 pr-0" : "ml-12 pr-1 pl-0"} p-2 pr-36 text-2x1 font-semibold 
+          relative flex justify-center m-0 duration-300`}>
             <RoutPages />
           </div>
         </div>
